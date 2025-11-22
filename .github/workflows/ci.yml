@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t roberta-app .
+
+      - name: Run tests in container
+        run: docker run --rm roberta-app pytest --maxfail=1 --disable-warnings -q
