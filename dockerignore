@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.code-workspace
+
+# OS junk
+.DS_Store
+
+# Test / cache
+.pytest_cache/
+.mypy_cache/
+
+# Environment files
+.env
+.env.*
+!.env.example
