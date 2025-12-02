@@ -4,29 +4,30 @@
 # 📸 Roberta Photography Backend  
 ### FastAPI • MongoDB • AWS S3 • Docker • API Key Auth
 
-Backend desenvolvido para o aplicativo de fotografia **Roberta Gulin Photo App**, permitindo gerenciar clientes, álbuns e fotos — com upload seguro para a AWS S3 e arquitetura escalável para uso real no dia a dia.
+This is the backend for the **Roberta Gulin Photography App**, built to manage clients, albums, and photos with secure cloud storage using AWS S3.  
+Designed to support a real mobile application (React Native / Expo), this API is structured for scalability, security, and reliability.
 
 ---
 
-## Composiçao 
+## 🚀 Tech Stack
 
-- **FastAPI** — API moderna, rápida e eficiente  
-- **MongoDB** — Banco NoSQL para clientes, álbuns e fotos  
-- **AWS S3** — Armazenamento seguro de imagens via presigned URLs  
-- **Docker & Docker Compose** — Facilita execução e deploy  
-- **Uvicorn** — Servidor ASGI  
-- **Pydantic** — Tipagem e validação  
-- **API Key Authentication** — Segurança para endpoints sensíveis  
+- **FastAPI** — Modern, fast, and efficient Python web framework  
+- **MongoDB** — NoSQL database for clients, albums, and photos  
+- **AWS S3** — Secure image storage with presigned URLs  
+- **Docker & Docker Compose** — Reproducible environment and deployment  
+- **Uvicorn** — ASGI server  
+- **Pydantic** — Data validation and typed models  
+- **API Key Authentication** — Secures critical endpoints  
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 
 roberta-app-vs-code/
 │
-├── app.py                     # Aplicação FastAPI
+├── app.py                     # FastAPI main application
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
@@ -34,9 +35,9 @@ roberta-app-vs-code/
 │
 ├── src/
 │   ├── utils/
-│   │   ├── db.py             # Conexão com MongoDB
-│   │   ├── auth.py           # Autenticação por API Key
-│   │   ├── s3.py             # Upload e URL presignada (AWS)
+│   │   ├── db.py             # MongoDB connection
+│   │   ├── auth.py           # API Key authentication
+│   │   ├── s3.py             # S3 upload + presigned URL generation
 │   │   └── ...
 │   └── ...
 │
@@ -46,9 +47,9 @@ roberta-app-vs-code/
 
 ---
 
-## Configuração — Arquivo `.env`
+## ⚙️ Environment Variables
 
-Crie um arquivo `.env` (não enviar ao GitHub):
+Create a `.env` file (DO NOT push to GitHub):
 
 ```env
 MONGO_URI=mongodb://localhost:27017
@@ -64,20 +65,20 @@ S3_BUCKET_NAME=roberta-app
 
 ---
 
-# 🐳 Executando com Docker (Recomendado)
+# 🐳 Running with Docker (Recommended)
 
 ```bash
 docker-compose up --build
 ```
 
-API disponível em:
+API available at:
 
 👉 [http://localhost:8000](http://localhost:8000)
-👉 Swagger: [http://localhost:8000/docs](http://localhost:8000/docs)
+👉 Swagger Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
-# Executando Localmente (sem Docker)
+# ▶️ Running Locally (Without Docker)
 
 ```bash
 python3 -m venv .venv
@@ -88,27 +89,23 @@ uvicorn app:app --reload
 
 ---
 
-# 🔐 Autenticação Necessária
+# 🔐 Authentication
 
-Envie o header:
+Protected endpoints require:
 
 ```
 x-api-key: your-secret-api-key
 ```
 
-Para endpoints protegidos (como upload de fotos).
-
 ---
 
-# 👥 Endpoints — Clientes
+# 👥 Client Endpoints
 
-### ➤ Criar Cliente
+### ➤ Create Client
 
 ```
 POST /clients
 ```
-
-Body:
 
 ```json
 {
@@ -117,7 +114,7 @@ Body:
 }
 ```
 
-### ➤ Listar Clientes
+### ➤ List Clients
 
 ```
 GET /clients
@@ -125,9 +122,9 @@ GET /clients
 
 ---
 
-# Endpoints — Álbuns
+# 📚 Album Endpoints
 
-### ➤ Criar Álbum
+### ➤ Create Album
 
 ```
 POST /albums
@@ -142,7 +139,7 @@ POST /albums
 }
 ```
 
-### ➤ Listar Álbuns
+### ➤ List Albums
 
 ```
 GET /albums
@@ -150,81 +147,87 @@ GET /albums
 
 ---
 
-# Endpoints — Fotos
+# 🖼 Photo Endpoints
 
-### ➤ Upload de Foto para Álbum
+### ➤ Upload Photo to an Album
 
 ```
 POST /albums/{album_id}/photos
 ```
 
-Multipart form:
+Multipart form fields:
 
-* `file` → arquivo da foto
-* `description` → opcional
+* **file** → image file
+* **description** → optional
 
-Exemplo:
+Example:
 
 ```bash
 curl -X POST "http://localhost:8000/albums/ALBUM_ID/photos" \
   -H "x-api-key: your-secret-api-key" \
   -F "file=@/Users/me/photo.jpg" \
-  -F "description=Foto da cerimônia"
+  -F "description=Ceremony photo"
 ```
 
-### ➤ Listar Fotos de um Álbum
+### ➤ List Photos of an Album
 
 ```
 GET /albums/{album_id}/photos
 ```
 
-Retorna lista com URLs presignadas.
+Returns a list of photo metadata + generated presigned URLs.
 
 ---
 
-# Como funciona o S3
+# ☁️ AWS S3 Behavior
 
-As fotos são armazenadas em:
+Uploaded files follow the structure:
 
 ```
 albums/<album_id>/<timestamp>_filename
 ```
 
-A API retorna uma URL temporária (presigned) para acesso seguro à imagem.
+Each photo response includes a time-limited **presigned URL** allowing secure access.
 
 ---
 
-# 📱 Próximos Passos
+# 📱 Next Steps (Mobile App Integration)
 
-* Integração com app mobile (React Native / Expo)
-* Deploy em AWS (Lightsail, Elastic Beanstalk ou API Gateway + Lambda)
-* CDN & Cache
-* Dashboard administrativo web
+This backend will support a real mobile application built with **React Native (Expo)**:
+
+* Upload photos directly from iPhone/Android
+* Browse albums
+* Client galleries
+* Secure image viewing
+* New events & tags
+
+A dedicated repository for the mobile app will be released soon.
 
 ---
 
 # 🧭 Roadmap
 
-* [x] Backend FastAPI
-* [x] MongoDB + Models
-* [x] Upload AWS S3
+* [x] FastAPI backend structure
+* [x] MongoDB integration
+* [x] AWS S3 uploads
 * [x] Presigned URLs
-* [x] API Key Auth
-* [x] CRUDs principais
-* [ ] Deploy AWS
-* [ ] Mobile App
-* [ ] Painel Web
+* [x] API Key security
+* [x] CRUD for clients/albums/photos
+* [ ] Backend deployment (AWS Lightsail / Elastic Beanstalk / API Gateway)
+* [ ] CDN & caching
+* [ ] React Native mobile app
+* [ ] Admin dashboard
 
 ---
 
-# Contribuições
+# 🤝 Contributing
 
-Contribuições e sugestões são bem-vindas!
-Abra um PR ou Issue.
+Pull requests, suggestions, and improvements are welcome!
+Feel free to open issues for bugs or discussions.
 
 ---
 
-Feito com ❤️ por **Vinicius G. Lemos**
-Cloud Engineering Student • AWS • Python • Mobile Dev
+Made with ❤️ by **Vinicius G. Lemos**
+Cloud Engineering Student • Python • AWS • Mobile Development
 
 ```
