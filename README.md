@@ -1,13 +1,14 @@
 
 
- 📸 Roberta Photography Backend  
+
+# 📸 Roberta Photography Backend  
 ### FastAPI • MongoDB • AWS S3 • Docker • API Key Auth
 
 Backend desenvolvido para o aplicativo de fotografia **Roberta Gulin Photo App**, permitindo gerenciar clientes, álbuns e fotos — com upload seguro para a AWS S3 e arquitetura escalável para uso real no dia a dia.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## Composiçao 
 
 - **FastAPI** — API moderna, rápida e eficiente  
 - **MongoDB** — Banco NoSQL para clientes, álbuns e fotos  
@@ -20,6 +21,8 @@ Backend desenvolvido para o aplicativo de fotografia **Roberta Gulin Photo App**
 ---
 
 ## 📁 Estrutura do Projeto
+
+```
 
 roberta-app-vs-code/
 │
@@ -39,13 +42,15 @@ roberta-app-vs-code/
 │
 └── README.md
 
+````
+
 ---
 
-## ⚙️ Configuração — Arquivo `.env`
+## Configuração — Arquivo `.env`
 
 Crie um arquivo `.env` (não enviar ao GitHub):
 
-.env
+```env
 MONGO_URI=mongodb://localhost:27017
 MONGO_DB_NAME=roberta_app
 
@@ -55,12 +60,15 @@ AWS_ACCESS_KEY_ID=xxxxxxx
 AWS_SECRET_ACCESS_KEY=xxxxxxx
 AWS_REGION=us-east-1
 S3_BUCKET_NAME=roberta-app
+````
 
+---
 
-🐳 Executando com Docker (Recomendado)
+# 🐳 Executando com Docker (Recomendado)
 
-bash
+```bash
 docker-compose up --build
+```
 
 API disponível em:
 
@@ -69,14 +77,14 @@ API disponível em:
 
 ---
 
-# ▶️ Executando Localmente (sem Docker)
+# Executando Localmente (sem Docker)
 
-bash
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app:app --reload
-
+```
 
 ---
 
@@ -84,9 +92,9 @@ uvicorn app:app --reload
 
 Envie o header:
 
-
+```
 x-api-key: your-secret-api-key
-
+```
 
 Para endpoints protegidos (como upload de fotos).
 
@@ -117,7 +125,7 @@ GET /clients
 
 ---
 
-# 📚 Endpoints — Álbuns
+# Endpoints — Álbuns
 
 ### ➤ Criar Álbum
 
@@ -142,7 +150,7 @@ GET /albums
 
 ---
 
-# 🖼 Endpoints — Fotos
+# Endpoints — Fotos
 
 ### ➤ Upload de Foto para Álbum
 
@@ -174,7 +182,7 @@ Retorna lista com URLs presignadas.
 
 ---
 
-# ☁️ Como funciona o S3
+# Como funciona o S3
 
 As fotos são armazenadas em:
 
@@ -209,7 +217,7 @@ A API retorna uma URL temporária (presigned) para acesso seguro à imagem.
 
 ---
 
-# 🤝 Contribuições
+# Contribuições
 
 Contribuições e sugestões são bem-vindas!
 Abra um PR ou Issue.
@@ -219,10 +227,4 @@ Abra um PR ou Issue.
 Feito com ❤️ por **Vinicius G. Lemos**
 Cloud Engineering Student • AWS • Python • Mobile Dev
 
-```
-
----
-
-Se quiser uma **versão em inglês** também posso gerar.  
-Se quiser **badges**, **diagrama da arquitetura**, ou **print da API**, também faço.
 ```
